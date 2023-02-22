@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Visualize backtracking algorithm by sudoku solver">
+    <title>Sudoku Solver : visualize backtracking algorithm</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org/",
+          "@type": "Person",
+          "name": "Ankit Kumar Jha",
+          "url": "https://ankitjha2603.github.io/sudoku-solver-backtracking-js",
+          "image": "https://avatars.githubusercontent.com/u/84379558?v=4",
+          "sameAs": [
+            "https://www.linkedin.com/in/ankitjha2603/",
+            "https://github.com/ankitjha2603"
+          ]  
+        }
+        </script>
+</head>
+
+<body>
+    <div>
+        <div>
+            <div>
+                <table>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div>
+            <div>
+                <table>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div>
+            <div>
+                <table>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                        <td><input type="number" min="1" max="9"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <button id="visualize">visualize backtracking in slow Speed : Solve Sudoku</button>
+    <br><button id="solve">Solve Sudoku : Fast</button>
+    <script src="script.js"></script>
+</body>
+
+</html>
