@@ -1,0 +1,24 @@
+input[type="number"]{
+    width: 40px;
+    width: 40px;
+    font-size: 20px;
+}
+table{
+    border-collapse: collapse;
+}
+body > div{
+    display: flex;
+}
+div > div{
+    border: solid #000;
+    border-width: 1px;
+}
+#solve,
+#visualize{
+    margin-top: 10px;
+    background-color: rgb(17, 195, 214);
+    height: 30px;
+    width: 440px;
+    border-radius: 10px;
+    cursor: pointer;
+}
