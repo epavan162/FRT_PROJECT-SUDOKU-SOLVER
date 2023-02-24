@@ -1,134 +1,226 @@
-"use strict"
+='use strict'
+const numberbox = document.getElementById("numberbox");
+const slider = document.getElementById("slider");
+const progressBar = document.getElementById("progress-bar")
+const playButton = document.getElementById('play-button');
+const pauseButton = document.getElementById("pause-button");
 
-import generateTableOfSizeN from "./GenerateChessBoard.js"; // function to generate a chess board of size n x n
-/** PrintNQueens.js
-  * setCountOfChessBoards: sets the value of countOfChessBoards in PrintNQueens.js
-  * clearAnimationsArr: clears animationsArr in PrintQueens.js
-  * getAnimationsArr: function that returns an array of animation functions with parameters to visualize the solution algorithm
- */
-import { setCountOfChessBoards, clearAnimationsArr, getAnimationsArr } from "./PrintNQueens.js";
-import cloneTableOfSizeN from "./CloneChessBoard.js"; // function to clone a chess board of size n x n
+const queen = '<i class="fas fa-chess-queen" style="color:#000"></i>';
 
-/** Value Of N */
-const valueOfNInputElement = document.getElementById("value-of-n");
-/** Start Visualization Button */
-const startButton = document.getElementById("start-visualization");
-/** N Queens Visualizer Section */
-const nQueensVisualizerSection = document.getElementById("n-queens-visualizer-section");
-/** Log Section */
-const logSection = document.getElementById("log-section");
+let n, speed, tempSpeed, q, Board = 0;
+// Board = 0;
 
-/** Number Of Queens and the Size of the Chess Board */
-let n = 0;
-/** matrix representing the chess board of size n x n */
-let chess = 0;
+// Creating array for all the possible arrangements of the N-Queen
+let array = [0, 2, 1, 1, 3, 11, 5, 41, 93];
 
-/**
- * Store the animation functions and their respective args
- * 
- * animationsArr = [
- * 
-        [function1, [parameter1, parameter2,....parameterN]],
-        [function2, [parameter1, parameter2,....parameterN]],
-                            .
-                            .
-                            .
-                            .
-        [functionN, [parameter1, parameter2,....parameterN]]
-    ]
- */
-let animationsArr = new Array();
+// Used to store the state of the boards;
+let pos = {};
+// let position = {};
 
-// event listener for Start Visualization Button
-startButton.addEventListener("click", () => {
-    if (valueOfNInputElement.value) {
-        // disable the Start Visualization Button to prevent multiple clicks
-        startButton.setAttribute("disabled", "disabled");
-        // disable the input field to prevent changing of the input value
-        valueOfNInputElement.setAttribute("disabled", "disabled");
 
-        n = valueOfNInputElement.value;
+// Setting the slider value onSlide
+speed = (100 - slider.value) * 10;
+tempSpeed = speed;
+slider.oninput = function () {
+    progressBar.style.width = this.value + "%";
+    speed = slider.value;
+    speed = (100 - speed) * 10;
+}
 
-        makeChessArr(); // inititalize chess to an n x n matrix and make all its elements = 0
-
-        clearNQueensVisualizerSection(); // clear the N Queens Visualizer Section
-
-        resetLogSection(); // reset the Log Section to show only the title "Logs"
-
-        generateTableOfSizeN(n, 1); // display a chess board of size n x n
-
-        setCountOfChessBoards(1); //set countOfChessBoard to 1 in PrintNQueens.js
-        clearAnimationsArr(); // clears animationsArr in PrintQueens.js
-        animationsArr = getAnimationsArr(chess, "", 0); // function that returns an array of animation functions with parameters to visualize the solution algorithm
-
-        animateNQueens(); // function to visualize the solution algorithm
-    }
-});
-
-/**
- * Inititalize chess to an n x n matrix and make all elements = 0
- */
-function makeChessArr() {
-    chess = new Array(n); // add rows
-
-    // add columns
-    for (let i = 0; i < n; i++) {
-        chess[i] = new Array(n);
+class Queen {
+    constructor() {
+        this.position = Object.assign({}, pos);
+        // this.Board = 0;
+        this.uuid = [];
     }
 
-    // initialize all values to 0
-    for (let i = 0; i < n; i++) {
-        for (let j = 0; j < n; j++) {
-            chess[i][j] = 0;
+    nQueen = async () => {
+        Board = 0;
+        this.position[`${Board}`] = {};
+        numberbox.disabled = true;
+        await q.solveQueen(Board, 0, n);
+        await q.clearColor(Board);
+        numberbox.disabled = false;
+    }
+
+    isValid = async (board, r, col, n) => {
+        //Setting the current box color to orange
+        const table = document.getElementById(`table-${this.uuid[board]}`);
+        const currentRow = table.firstChild.childNodes[r];
+        const currentColumn = currentRow.getElementsByTagName("td")[col];
+        currentColumn.innerHTML = queen;
+        // currentColumn.style.backgroundColor = "#FF9F1C";
+        await q.delay();
+
+        // Checking the queen in the same column
+        for (let i = r - 1; i >= 0; --i) {
+            const row = table.firstChild.childNodes[i];
+            const column = row.getElementsByTagName("td")[col];
+
+            const value = column.innerHTML;
+
+            if (value == queen) {
+                column.style.backgroundColor = "#FB5607";
+                currentColumn.innerHTML = "-"
+                return false;
+            }
+            column.style.backgroundColor = "#ffca3a";
+            await q.delay();
+        }
+
+        //Checking the upper left diagonal
+        for (let i = r - 1, j = col - 1; i >= 0 && j >= 0; --i, --j) {
+            const row = table.firstChild.childNodes[i];
+            const column = row.getElementsByTagName("td")[j];
+            const value = column.innerHTML;
+
+            if (value == queen) {
+                column.style.backgroundColor = "#fb5607";
+                currentColumn.innerHTML = "-"
+                return false;
+            }
+            column.style.backgroundColor = "#ffca3a";
+            await q.delay();
+        }
+
+        // Checking the upper right diagonal
+        for (let i = r - 1, j = col + 1; i >= 0 && j < n; --i, ++j) {
+            const row = table.firstChild.childNodes[i];
+            const column = row.getElementsByTagName("td")[j];
+
+            const value = column.innerHTML;
+
+            if (value == queen) {
+                column.style.backgroundColor = "#FB5607";
+                currentColumn.innerHTML = "-"
+                return false;
+            }
+            column.style.backgroundColor = "#ffca3a";
+            await q.delay();
+        }
+        return true;
+    }
+
+    clearColor = async (board) => {
+        for (let j = 0; j < n; ++j) {
+            const table = document.getElementById(`table-${this.uuid[board]}`);
+            const row = table.firstChild.childNodes[j];
+            for (let k = 0; k < n; ++k)
+                (j + k) & 1
+                    ? (row.getElementsByTagName("td")[k].style.backgroundColor = "#FF9F1C")
+                    : (row.getElementsByTagName("td")[k].style.backgroundColor = "#FCCD90");
+        }
+    }
+
+    delay = async () => {
+        await new Promise((done) => setTimeout(() => done(), speed));
+    }
+
+    solveQueen = async (board, r, n) => {
+        if (r == n) {
+            ++Board;
+            let table = document.getElementById(`table-${this.uuid[Board]}`);
+            for (let k = 0; k < n; ++k) {
+                let row = table.firstChild.childNodes[k];
+                row.getElementsByTagName("td")[this.position[board][k]].innerHTML = queen;
+            }
+            this.position[Board] = this.position[board];
+            return;
+        }
+
+        for (let i = 0; i < n; ++i) {
+            await q.delay();
+            // console.log("outside:" + board);
+            await q.clearColor(board);
+            if (await q.isValid(board, r, i, n)) {
+                await q.delay();
+                // console.log("inside:" + board)
+                await q.clearColor(board);
+                let table = document.getElementById(`table-${this.uuid[board]}`);
+                let row = table.firstChild.childNodes[r];
+                row.getElementsByTagName("td")[i].innerHTML = queen;
+
+                this.position[board][r] = i;
+
+                if (await q.solveQueen(board, r + 1, n))
+                    await q.clearColor(board);
+
+                await q.delay();
+                board = Board;
+                // console.log(this.Board)
+                table = document.getElementById(`table-${this.uuid[board]}`);
+                // console.log(JSON.parse(JSON.stringify(table)));
+                row = table.firstChild.childNodes[r];
+                row.getElementsByTagName("td")[i].innerHTML = "-";
+
+                delete this.position[`${board}`][`${r}`];
+            }
         }
     }
 }
 
-/** Clear the N Queens Visualizer Section */
-function clearNQueensVisualizerSection() {
-    nQueensVisualizerSection.innerHTML = "";
-}
+playButton.onclick = async function visualise() {
+    const chessBoard = document.getElementById("n-queen-board");
+    const arrangement = document.getElementById("queen-arrangement");
 
-/** Reset the Log Section to show only the title "Logs" */
-function resetLogSection() {
-    logSection.innerHTML = ""; // delete all the innerHTML of Log Section by making its innerHTML = ""
+    n = numberbox.value;
+    q = new Queen();
 
-    const pTag = document.createElement("p"); // create a new <p> tag
-    pTag.innerHTML = "Logs"; // <p>Logs</p>
-
-    const hrTag = document.createElement("hr"); // create a new <hr> tag
-
-    pTag.appendChild(hrTag); // <p>Logs <hr></p>
-
-    logSection.appendChild(pTag); // add the <p>Logs <hr></p> to the Log Section
-}
-
-/**
- * Create a delay using promise
- * @param {Number} time The delay time in milliseconds
- * @returns {Promise} A promise that will resolve after the given time in milliseconds
- */
-function delay(time) {
-    return new Promise(resolve => setTimeout(resolve, time)); // the promise is resolved after the given time
-}
-
-/**
- * Visualize the sorting algorithm
- */
-async function animateNQueens() {
-    // access each array in animationsArr in the order it is stored in the animationsArr
-    for (let functionArr of animationsArr) {
-        /** The animation function to call */
-        let animationFunction = functionArr[0];
-        /** array of arguments to pass to the animatin function */
-        let args = functionArr[1];
-
-        await delay(200); // create a delay to show the animation step-by-step
-        animationFunction(...args); // call the function with its respective parameters
+    if (n > 8) {
+        numberbox.value = "";
+        alert("Queen value is too large");
+        return;
+    } else if (n < 1) {
+        numberbox.value = "";
+        alert("Queen value is too small");
+        return;
     }
 
-    await delay(200); // create a delay after the animation is over
+    // Removing all the of previous execution context
+    while (chessBoard.hasChildNodes()) {
+        chessBoard.removeChild(chessBoard.firstChild);
+    }
+    if (arrangement.hasChildNodes()) {
+        arrangement.removeChild(arrangement.lastChild)
+    }
 
-    valueOfNInputElement.removeAttribute("disabled"); // disable the input field to prevent changing of the input value
-    startButton.removeAttribute("disabled"); // enable the Start Visualization Button
-}
+    const para = document.createElement("p");
+    para.setAttribute("class", "queen-info");
+    para.innerHTML = `For ${n}x${n} board, ${array[n] - 1} arrangements are possible.`;
+    arrangement.appendChild(para);
+
+    //Adding boards to the Div
+    if (chessBoard.childElementCount === 0) {
+        for (let i = 0; i < array[n]; ++i) {
+            q.uuid.push(Math.random());
+            let div = document.createElement('div');
+            let table = document.createElement('table');
+            let header = document.createElement('h4');
+            // div.setAttribute("id", `div-${100 + uuid[i]}`)
+            header.innerHTML = `Board ${i + 1} `
+            table.setAttribute("id", `table-${q.uuid[i]}`);
+            header.setAttribute("id", `paragraph-${i}`);
+            chessBoard.appendChild(div);
+            div.appendChild(header);
+            div.appendChild(table);
+        }
+    }
+
+    for (let k = 0; k < array[n]; ++k) {
+        let table = document.getElementById(`table-${q.uuid[k]}`);
+        for (let i = 0; i < n; ++i) {
+            const row = table.insertRow(i); // inserting ith row
+            row.setAttribute("id", `Row${i} `);
+            for (let j = 0; j < n; ++j) {
+                const col = row.insertCell(j); // inserting jth column
+                (i + j) & 1
+                    ? (col.style.backgroundColor = "#FF9F1C")
+                    : (col.style.backgroundColor = "#FCCD90");
+                col.innerHTML = "-";
+                col.style.border = "0.3px solid #373f51";
+            }
+        }
+        await q.clearColor(k);
+    }
+    await q.nQueen();
+};
