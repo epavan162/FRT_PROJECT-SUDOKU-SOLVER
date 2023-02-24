@@ -1,143 +1,229 @@
-html {
-  background-color: white;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  position: relative;
+  top: -20px;
+  width: 100%;
+  background-color: #011627;
+  color: #fdfffc;
+}
+
+.header h2 {
+  padding: 0.5em;
+}
+
+div.n-queen {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  max-width: 450px;
+  /* border: 1px solid red; */
+}
+
+.inputbox {
+  position: relative;
+  top: 1.5em;
+  bottom: 2em;
+}
+
+.numberbox {
+  width: 100%;
+  font-size: 14px;
+  padding: 4px;
+  border: none;
+  border-bottom: 2px solid #2ec4b6;
+  outline: none;
+  background: transparent;
+}
+
+.inputbox label {
+  position: absolute;
+  top: 4px;
+  left: 0px;
+  color: #2ec4b6;
+  font-size: 14px;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.inputbox input:focus ~ label,
+.inputbox input:disabled ~ label,
+.inputbox input:valid ~ label {
+  top: -9px;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.slider-container {
+  position: absolute;
+  left: 5%;
+  width: 90%;
+  /* text-align: center; */
+  margin: 0 auto;
+  top: 4em;
+  /* border: 2px solid red; */
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 0 auto;
+  height: 7px;
+  border-radius: 7px;
+  background: linear-gradient(90deg, #e8eddf 60%, #e8eddf 60%);
+  outline: none;
+}
+
+.slider::after {
+  content: "SLOW";
+  position: absolute;
+  top: -10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fa7921;
+}
+
+.slider::before {
+  content: "FAST";
+  position: absolute;
+  top: -10px;
+  right: 0px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fa7921;
+}
+
+/* Google chrome */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: -2px;
+  cursor: pointer;
+  background-color: #fa7921;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.slider::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 15px;
+  width: 15px;
+  z-index: 1;
+  color: #ffba08;
+}
+
+/* Mozilla firefox */
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background-color: #fa7921;
+  cursor: pointer;
+  position: relative;
+  top: -2px;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #fa7921;
+}
+
+#progress-bar {
+  width: 60%;
+  height: 7px;
+  background: #ffd200;
+  border-radius: 7px;
+  position: absolute;
+  top: 7px;
+}
+
+.play-button {
+  position: relative;
+  top: 80px;
+  left: 35%;
+  border: none;
+  outline: none;
+  color: #fdfffc;
+  width: 80px;
+  height: 35px;
+  background-color: #f72585;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  /* z-index: 1; */
+}
+
+.play-button:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+.queen-arrangement {
+  position: relative;
+  top: 140px;
   text-align: center;
-  margin: 0 25px 25px 25px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #247ba0;
 }
 
-#title-hr {
-  margin: 0 25px;
-}
-
-main {
-  align-items: flex-start;
+#n-queen-board {
+  position: relative;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-/* any section which is a child of main */
-main>section {
-  border: solid 1px;
-  margin-left: 25px;
-  margin-right: 25px;
-  max-width: 50vw;
-  max-height: 55vh;
-  overflow: scroll;
-  padding: 0 25px 25px 25px;
-}
-
-#description-of-the-algorithm {
-  text-align: left;
-  margin: 25px;
-}
-
-#input-section {
-  background-color: white;
-  position: sticky;
-  top: 0;
-  /*  -webkit-box-shadow: 0px 5px 5px -5px black;
-  -moz-box-shadow: 0px 5px 5px -5px black;
-  box-shadow: 0px 5px 5px -5px black;*/
-}
-
-#n-queens-visualizer-section {
-  align-content: center;
-  align-items: center;
-  display: flex;
-  flex-direction: row;
+  width: 80%;
+  top: 150px;
+  margin: 0 auto;
   flex-wrap: wrap;
   justify-content: center;
-  text-align: center;
+}
+
+#n-queen-board div {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 10px;
+  box-shadow: 0 4px 8px 0 rgb(0, 0, 0, 0.2);
+  border-radius: 3px;
+  bottom: 10px;
 }
 
 table {
-  border: solid 1px;
+  position: relative;
   border-collapse: collapse;
-  margin: 25px;
-}
-
-tr {
-  border: solid 1px;
+  margin: -10px 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  align-self: center;
 }
 
 td {
-  border: solid 1px;
+  width: 35px;
   height: 35px;
   text-align: center;
-  width: 35px;
 }
 
-/* even rows odd columns */
-tr:nth-of-type(2n)>td:nth-of-type(2n+1) {
-  background-color: lightgrey;
-}
-
-/* odd rows even columns */
-tr:nth-of-type(2n+1)>td:nth-of-type(2n) {
-  background-color: lightgrey;
-}
-
-td.blue-background {
-  background-color: rgb(150, 150, 255);
-}
-
-/* paragraphs which do not have a class blue-background  and are inside a section of id log-section*/
-#log-section p:not(p.blue-background) {
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-p.blue-background {
-  background-color: rgb(150, 150, 255);
-  color: white;
-  margin-top: 35px;
-  margin-bottom: 5px;
-}
-
-p.blue-background.normal-margin {
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-p.red-background {
-  background-color: rgb(255, 147, 97);
-  color: white;
-}
-
-p.green-background {
-  background-color: rgba(0, 196, 98, 0.8);
-  color: white;
-}
-
-/* first paragraph inside a section of id log-section */
-#log-section p:first-of-type {
-  background-color: white;
-  position: sticky;
-  top: 0;
-  /*  -webkit-box-shadow: 0px 5px 5px -5px black;
-  -moz-box-shadow: 0px 5px 5px -5px black;
-  box-shadow: 0px 5px 5px -5px black;*/
-}
-
-/* any anchor tag that is a child of the footer tag */
-footer>a {
-  text-decoration-line: none;
-}
-
-/* any hr tag that is a child of the footer tag */
-footer>hr {
-  margin: 25px;
-  /* margin-left: 25px;
-  margin-right: 25px; */
-}
-
-@media (max-width: 1180px) {
-  main {
-    justify-content: center;
-  }
-
-  #log-section {
-    margin-top: 25px;
-  }
+h4 {
+  position: relative;
+  top: -5px;
+  padding: 8px;
+  width: 95%;
+  background-color: #0582ca;
+  align-self: center;
+  color: #fdfffc;
+  text-align: center;
+  border-radius: 4px 4px 0 0;
 }
